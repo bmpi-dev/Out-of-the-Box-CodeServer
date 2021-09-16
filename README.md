@@ -73,7 +73,7 @@ $ git clone https://github.com/nullpo-head/Out-of-Box-CodeServer-Environment.git
    rewrite `HEARTBEATS_ACTION` so that it corresponds to your VM.
 
    ```
-   HEARTBEATS_ACTION="az vm deallocate --subscription 'Put Your Subscription Here' -g 'Put Your Resource Group Name Here' -n 'Put Your VM Name Here"
+   HEARTBEATS_ACTION="az vm deallocate --subscription 'Put Your Subscription Here' -g 'Put Your Resource Group Name Here' -n 'Put Your VM Name Here'"
    ```
 
    You can set `HEARTBEATS_TIMEOUT` to determine how many minutes of idle time the VM will deallocate after. The default minutes is 15.  
