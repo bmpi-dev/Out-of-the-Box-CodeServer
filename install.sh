@@ -50,11 +50,43 @@ fi
 
 cd "$(dirname "$(realpath "$0")")"
 
-echo_stage "== Checking if lxd and docker are installed =="
+echo_stage "== Installing utilities and CLIs: git, awscli, curl, jq, unzip, software-properties-common (apt-add-repository) and sudo =="
+
+sudo apt update
+sudo DEBIAN_FRONTEND=noninteractive apt install -y git awscli curl jq unzip software-properties-common sudo apt-transport-https
+
+echo_stage "== Installing docker.io =="
+
+sudo DEBIAN_FRONTEND=noninteractive apt install -y docker.io
+sudo apt-mark hold docker.io
+# Point Docker at big ephemeral drive and turn on log rotation
+sudo systemctl stop docker
+sudo mkdir /mnt/docker
+sudo chmod 711 /mnt/docker
+
+sudo cat <<EOF > /etc/docker/daemon.json
+{
+    "data-root": "/mnt/docker",
+    "log-driver": "json-file",
+    "log-opts": {
+        "max-size": "10m",
+        "max-file": "5"
+    }
+}
+EOF
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+echo_stage "== Installing docker-compose =="
+
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+echo_stage "== Checking if lxd is installed =="
 
 check_install lxd
-check_install docker
-check_install docker-compose
 
 echo_stage "== Checking .env =="
 
@@ -124,7 +156,7 @@ lxc config device add ootb-code-server heartbeats disk source=$(realpath heartbe
 info "Enabling code-server in the container..."
 lxc exec ootb-code-server -- sudo -u "${USERNAME}" sh -c "DBUS_SESSION_BUS_ADDRESS='unix:path=/run/user/1000/bus' systemctl --user enable code-server"
 lxc stop ootb-code-server
-lxc file push -p ./codeserver/config.yaml ootb-code-server/home/nullpo/.config/code-server/
+lxc file push -p ./codeserver/config.yaml ootb-code-server/home/$USERNAME/.config/code-server/
 lxc start ootb-code-server
 
 info "Querying the IP address of the container..."

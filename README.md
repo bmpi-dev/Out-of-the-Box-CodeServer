@@ -83,6 +83,8 @@ $ git clone https://github.com/nullpo-head/Out-of-Box-CodeServer-Environment.git
    
    __NOTE__: Automatic deallocation doesn't work if you connect to Code-Server from iPad. Please see [the issue of Code-Server](https://github.com/cdr/code-server/issues/2061).
 
+   Start Azure VM with `az vm start --subscription 'Your Subscription' -g 'Your Resource Group' -n 'Your VM name'`
+
 ### 3. Initialize OOTB Code-Server
 
 **First**, please make sure that `80` and `443` ports are not used by other web servers.  
