@@ -104,6 +104,8 @@ Containers of OOTB Code-Server will automatically launch when your server starts
 
 OOTB Code-Server consists of Docker Compose and LXD. So, you can controll containers by `docker-compose` and `lxc`.
 
+Login code server as root by `lxc shell ootb-code-server`
+
 ### Stop
 
 ```bash
