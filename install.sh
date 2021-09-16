@@ -64,7 +64,7 @@ sudo systemctl stop docker
 sudo mkdir /mnt/docker
 sudo chmod 711 /mnt/docker
 
-sudo cat <<EOF > /etc/docker/daemon.json
+sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
 {
     "data-root": "/mnt/docker",
     "log-driver": "json-file",
@@ -73,7 +73,7 @@ sudo cat <<EOF > /etc/docker/daemon.json
         "max-file": "5"
     }
 }
-EOF
+EOF'
 
 sudo systemctl start docker
 sudo systemctl enable docker
