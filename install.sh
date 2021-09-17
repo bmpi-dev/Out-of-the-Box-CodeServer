@@ -59,23 +59,6 @@ echo_stage "== Installing docker.io =="
 
 sudo DEBIAN_FRONTEND=noninteractive apt install -y docker.io
 sudo apt-mark hold docker.io
-# Point Docker at big ephemeral drive and turn on log rotation
-sudo systemctl stop docker
-sudo mkdir /mnt/docker
-sudo chmod 711 /mnt/docker
-
-sudo bash -c 'cat <<EOF > /etc/docker/daemon.json
-{
-    "data-root": "/mnt/docker",
-    "log-driver": "json-file",
-    "log-opts": {
-        "max-size": "10m",
-        "max-file": "5"
-    }
-}
-EOF'
-
-sudo systemctl start docker
 sudo systemctl enable docker
 
 echo_stage "== Installing docker-compose =="
