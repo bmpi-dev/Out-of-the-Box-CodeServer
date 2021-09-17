@@ -160,6 +160,14 @@ else
     sudo docker-compose up -d https-portal oauth2-proxy
 fi
 
+echo_stage "== Fix heartbeats permission error =="
+
+sudo chown -R $USERNAME:$USERNAME ./heartbeats_files_placeholder
+
+echo_stage "== Download devops_tools_install_v3.sh =="
+
+lxc exec ootb-code-server -- sudo -u "${USERNAME}" sh -c "wget -O /home/$USERNAME/devops_tools_install_v3.sh https://raw.githubusercontent.com/bmpi-dev/how-tos/main/src/devops_tools_install_v3.sh"
+
 echo_stage "== Finish =="
 
 info "Done!"
