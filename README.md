@@ -82,8 +82,8 @@ $ git clone https://github.com/nullpo-head/Out-of-Box-CodeServer-Environment.git
    Azure VM is only supported right now because the author is an Azure user. Any PRs to support other clouds are welcome.
    
    __NOTE__:
-      - Automatic deallocation doesn't work if you connect to Code-Server from iPad. Please see [the issue of Code-Server](https://github.com/cdr/code-server/issues/2061).
-      - Automatic deallocation doesn't work if you computer sleep but the browser tab is not closed. Please see [heartbeat file modify date keeps getting updated](https://github.com/cdr/code-server/issues/2112#issuecomment-813056958).
+      - Automatic deallocation doesn't work if you **connect to Code-Server from iPad**. Please see [the issue of Code-Server](https://github.com/cdr/code-server/issues/2061).
+      - Automatic deallocation doesn't work if you **computer sleep but the browser tab is not closed**. Please see [heartbeat file modify date keeps getting updated](https://github.com/cdr/code-server/issues/2112#issuecomment-813056958).
         - One way is to install Azure App on your phone and check if the VM is deallocated at any time (recommended).
         - Another way is to use the azure vm auto shutdown feature.
         - You can check connections between the browser and the code server with `sudo ss -tpn` in host machine.
