@@ -162,3 +162,39 @@ CONTAINER ID        IMAGE                               COMMAND               CR
 7c9806549c66        steveltn/https-portal:1             "/init"               2 hours ago         Up 2 hours          0.0.0.0:80->80/tcp, 0.0.0.0:443->443/tcp   helper_containers_https-portal_1
 6f0ce90981c9        quay.io/oauth2-proxy/oauth2-proxy   "/bin/oauth2-proxy"   2 hours ago         Up 2 hours                                                     helper_containers_oauth2-proxy_1
 ```
+
+## How to resize disk size Dynamicly
+
+if code server disk is not enough to use, it is not need to reinstall it, becasue it use lxc zfs filesystem and it can resize dynamicly! Below is the operate steps:
+
+1. Resize the disk in Azure vm disk manager, just stop the vm and resize the disk and restart the vm, everything is back and the disk is resized.
+2. Resize lxc storage.
+```bash
+sudo apt install zfsutils-linux # to get the zfs command
+
+zfs list -t all
+# this lists loads of stuff, but "default" is at the top
+# and shows the amount of space I had, which was 27GB
+
+sudo ls /var/snap/lxd/common/lxd/disks/default.img
+# this file exists, confirming that I have ZFS, it's using a loop file,
+# it's called "default", and I'm using the snapped LXD
+
+lxc stop ootb-code-server # stop code server container; unsure if this is required
+sudo snap stop lxd # for non-snap this might be sudo service stop lxd?
+# unsure if stopping lxd is required before fiddling with the ZFS stuff
+
+sudo truncate -s +10G /var/snap/lxd/common/lxd/disks/default.img
+# I wanted to add 10G of space because, as above, I told
+# the container it had 40GB rather than the 30GB it had already
+
+# for the below the docs say "lxd", not "default", as the pool name
+# if you put the wrong name you get "cannot open 'lxd': no such pool"
+sudo zpool set autoexpand=on default
+sudo zpool online -e default /var/snap/lxd/common/lxd/disks/default.img
+sudo zpool set autoexpand=off default
+
+sudo snap start lxd # and restart lxd
+lxc start ootb-code-server # and code server container
+```
+
