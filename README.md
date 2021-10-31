@@ -163,9 +163,9 @@ CONTAINER ID        IMAGE                               COMMAND               CR
 6f0ce90981c9        quay.io/oauth2-proxy/oauth2-proxy   "/bin/oauth2-proxy"   2 hours ago         Up 2 hours                                                     helper_containers_oauth2-proxy_1
 ```
 
-## How to resize disk size Dynamicly
+## How to resize disk size dynamicly
 
-if code server disk is not enough to use, it is not need to reinstall it, becasue it use lxc zfs filesystem and it can resize dynamicly! Below is the operate steps:
+If code server disk is not enough to use, it is not need to reinstall it, becasue it use lxc zfs filesystem and it can resize dynamicly! Below is the operate steps:
 
 1. Resize the disk in Azure vm disk manager, just stop the vm and resize the disk and restart the vm, everything is back and the disk is resized.
 2. Resize lxc storage.
@@ -180,7 +180,7 @@ sudo ls /var/snap/lxd/common/lxd/disks/default.img
 # this file exists, confirming that I have ZFS, it's using a loop file,
 # it's called "default", and I'm using the snapped LXD
 
-lxc stop ootb-code-server # stop code server container; unsure if this is required
+lxc stop ootb-code-server --force # stop code server container; if it is stuck, just stop forcely
 sudo snap stop lxd # for non-snap this might be sudo service stop lxd?
 # unsure if stopping lxd is required before fiddling with the ZFS stuff
 
