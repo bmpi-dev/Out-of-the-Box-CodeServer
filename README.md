@@ -91,6 +91,9 @@ $ git clone https://github.com/nullpo-head/Out-of-Box-CodeServer-Environment.git
    __How TO Start VM__:
       - Start Azure VM with `az vm start --subscription 'Your Subscription' -g 'Your Resource Group' -n 'Your VM name'`
 
+   __How TO Deallocate(not stop, deallocate will stop billing) VM__:
+      - Deallocate Azure VM with `az vm deallocate --subscription 'Your Subscription' -g 'Your Resource Group' -n 'Your VM name'`
+
 ### 3. Initialize OOTB Code-Server
 
 **First**, please make sure that `80` and `443` ports are not used by other web servers.  
