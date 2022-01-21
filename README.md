@@ -207,5 +207,5 @@ Execute these commands in code server(shell or browser):
 
 ```
 curl -fsSL https://code-server.dev/install.sh | sh
-systemctl --user status code-server
+systemctl --user restart code-server
 ```
