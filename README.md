@@ -214,3 +214,11 @@ systemctl --user restart code-server
 
 1. Use azure server deallocate feature, or use azure app to start/stop server.
 2. Server disk uses `Standard HDD LRS` type, size is `64GB`.
+
+## Using Copilots with Code Server
+
+1. download copilots extension in [vscode marketplace](https://marketplace.visualstudio.com/items?itemName=GitHub.copilot).
+2. upload extension to [filesend](https://www.filesend.jp/l/en-US/) and use `wget` to download it in code server.
+3. install extension by vsix way.
+4. activate extension, refer this [Using Copilots with Code Server](https://papago.naver.net/website?locale=ko&source=auto&target=en&url=https%3A%2F%2Fdandalf.tistory.com%2F112) post.
+5. details in this [github issue](https://github.com/coder/code-server/discussions/4363).
