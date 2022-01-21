@@ -209,3 +209,8 @@ Execute these commands in code server(shell or browser):
 curl -fsSL https://code-server.dev/install.sh | sh
 systemctl --user restart code-server
 ```
+
+## How to reduce server costs
+
+1. Use azure server deallocate feature, or use azure app to start/stop server.
+2. Server disk uses `Standard HDD LRS` type, size is `64GB`.
