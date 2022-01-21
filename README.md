@@ -201,3 +201,11 @@ sudo snap start lxd # and restart lxd
 lxc start ootb-code-server # and code server container
 ```
 
+## How to upgrade code-server
+
+Execute these commands in code server(shell or browser):
+
+```
+curl -fsSL https://code-server.dev/install.sh | sh
+systemctl --user status code-server
+```
